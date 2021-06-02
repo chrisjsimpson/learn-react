@@ -44,6 +44,33 @@
       },
     });
 
+    var ContactForm = React.createClass({
+      propTypes: {
+        contact: React.PropTypes.object.isRequired
+      },
+
+      render: function() {
+        return (
+          React.createElement('form', {className: 'contact-form'},
+            React.createElement('input', {
+              placeholder: 'name',
+              type: 'email',
+              value: this.props.contact.name,
+            }),
+            React.createElement('input', {
+              placeholder: 'email',
+              value: this.props.contact.email
+            }),
+            React.createElement('textarea', {
+              placeholder: 'description',
+              value: this.props.contact.description
+            }),
+            React.createElement('button', {type: 'submit'}, 'Add Contact'),
+          )
+        )
+      },
+    });
+
     // Only show contacts which have an email address
     var listElements = contacts
       .filter(function(contact) { return contact.email; })
@@ -55,7 +82,8 @@
     var rootElement = 
       React.createElement('div', {},
         React.createElement('h1', {}, "Contacts"),
-        React.createElement('ul', {}, listElements)
+        React.createElement('ul', {}, listElements),
+        React.createElement(ContactForm, {contact: {key: 0, name: "", email: "", description: ""}}),
       )
     ReactDOM.render(rootElement, document.getElementById('react-app'))
     </script>
